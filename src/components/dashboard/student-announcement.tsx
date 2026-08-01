@@ -1,0 +1,12 @@
+"use client"
+
+import { FormEvent, useState } from 'react'
+import { Send } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+export function StudentAnnouncement() {
+  const [title, setTitle] = useState(''); const [message, setMessage] = useState(''); const [type, setType] = useState('INFO'); const [status, setStatus] = useState(''); const [saving, setSaving] = useState(false)
+  const submit = async (event: FormEvent) => { event.preventDefault(); const token = localStorage.getItem('accessToken'); if (!token) return; setSaving(true); setStatus(''); try { const response = await fetch('/api/admin/notifications', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ title, message, type }) }); const data = await response.json(); if (!response.ok) throw new Error(data?.error?.message || 'Unable to send the announcement.'); setStatus(data.message); setTitle(''); setMessage('') } catch (error) { setStatus(error instanceof Error ? error.message : 'Unable to send the announcement.') } finally { setSaving(false) } }
+  return <Card className="border-gold-300"><CardHeader><CardTitle className="flex items-center gap-2"><Send className="h-5 w-5 text-gold-600" />Student announcement</CardTitle><p className="text-sm text-gray-500">Send an in-dashboard notification to every active student.</p></CardHeader><CardContent><form className="space-y-3" onSubmit={submit}><input required value={title} onChange={(event) => setTitle(event.target.value)} placeholder="Announcement title" className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" /><textarea required value={message} onChange={(event) => setMessage(event.target.value)} placeholder="Write your message for students" className="min-h-24 w-full rounded-md border border-input bg-background p-3 text-sm" /><div className="flex flex-wrap gap-3"><select value={type} onChange={(event) => setType(event.target.value)} className="h-10 rounded-md border border-input bg-background px-3 text-sm"><option value="INFO">Information</option><option value="SUCCESS">Success</option><option value="WARNING">Warning</option><option value="ERROR">Urgent</option></select><Button disabled={saving}>{saving ? 'Sending…' : 'Send to students'}</Button></div>{status && <p className={`text-sm ${status.startsWith('Announcement sent') ? 'text-emerald-700' : 'text-red-700'}`}>{status}</p>}</form></CardContent></Card>
+}

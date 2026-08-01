@@ -134,8 +134,8 @@ export default function AuditPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
-          <Activity className="h-8 w-8 text-royal-600" />
-          <h1 className="text-3xl font-bold font-heading">Audit Logs</h1>
+          <Activity className="h-6 w-6 md:h-8 md:w-8 text-royal-600" />
+          <h1 className="text-2xl md:text-3xl font-bold font-heading">Audit Logs</h1>
         </div>
         <p className="text-gray-600 dark:text-gray-400">View system activity and security events</p>
       </div>
@@ -148,8 +148,8 @@ export default function AuditPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-royal-600" />
+          <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
+            <AlertTriangle className="h-4 w-4 md:h-5 md:w-5 text-royal-600" />
             System Activity
           </CardTitle>
         </CardHeader>
@@ -188,31 +188,31 @@ export default function AuditPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead className="border-b">
-                  <tr className="text-sm text-gray-500">
-                    <th className="p-4">Timestamp</th>
-                    <th className="p-4">User</th>
-                    <th className="p-4">Action</th>
-                    <th className="p-4">Entity</th>
-                    <th className="p-4">Details</th>
+                  <tr className="text-xs md:text-sm text-gray-500">
+                    <th className="p-2 md:p-4">Timestamp</th>
+                    <th className="p-2 md:p-4">User</th>
+                    <th className="p-2 md:p-4">Action</th>
+                    <th className="p-2 md:p-4 hidden sm:table-cell">Entity</th>
+                    <th className="p-2 md:p-4 hidden md:table-cell">Details</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredLogs.map((log) => (
                     <tr key={log.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
-                      <td className="p-4 text-sm text-gray-500">
+                      <td className="p-2 md:p-4 text-xs md:text-sm text-gray-500">
                         {new Date(log.createdAt).toLocaleString()}
                       </td>
-                      <td className="p-4">
-                        <p className="font-semibold">{log.user.firstName} {log.user.lastName}</p>
-                        <p className="text-sm text-gray-500">{log.user.email}</p>
+                      <td className="p-2 md:p-4">
+                        <p className="font-semibold text-sm md:text-base">{log.user.firstName} {log.user.lastName}</p>
+                        <p className="text-xs md:text-sm text-gray-500 truncate max-w-[120px] md:max-w-xs">{log.user.email}</p>
                       </td>
-                      <td className="p-4">
+                      <td className="p-2 md:p-4">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getActionColor(log.action)}`}>
                           {log.action}
                         </span>
                       </td>
-                      <td className="p-4 text-sm">{log.entity}</td>
-                      <td className="p-4 text-sm text-gray-500 max-w-xs truncate">
+                      <td className="p-2 md:p-4 text-sm hidden sm:table-cell">{log.entity}</td>
+                      <td className="p-2 md:p-4 text-sm text-gray-500 max-w-xs truncate hidden md:table-cell">
                         {log.details || '—'}
                       </td>
                     </tr>

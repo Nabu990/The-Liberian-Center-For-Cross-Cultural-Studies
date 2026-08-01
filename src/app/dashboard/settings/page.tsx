@@ -71,8 +71,8 @@ export default function SettingsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
-          <Settings className="h-8 w-8 text-royal-600" />
-          <h1 className="text-3xl font-bold font-heading">System Settings</h1>
+          <Settings className="h-6 w-6 md:h-8 md:w-8 text-royal-600" />
+          <h1 className="text-2xl md:text-3xl font-bold font-heading">System Settings</h1>
         </div>
         <p className="text-gray-600 dark:text-gray-400">Configure institution-wide settings and preferences</p>
       </div>
@@ -83,12 +83,12 @@ export default function SettingsPage() {
         </div>
       )}
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* General Settings */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Globe className="h-5 w-5 text-royal-600" />
+            <CardTitle className="flex items-center gap-2 text-base md:text-lg">
+              <Globe className="h-4 w-4 md:h-5 md:w-5 text-royal-600" />
               General Information
             </CardTitle>
           </CardHeader>
@@ -132,8 +132,8 @@ export default function SettingsPage() {
         {/* Academic Settings */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-gold-500" />
+            <CardTitle className="flex items-center gap-2 text-base md:text-lg">
+              <BookOpen className="h-4 w-4 md:h-5 md:w-5 text-gold-500" />
               Academic Settings
             </CardTitle>
           </CardHeader>
@@ -173,8 +173,8 @@ export default function SettingsPage() {
         {/* Notification Settings */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Bell className="h-5 w-5 text-blue-500" />
+            <CardTitle className="flex items-center gap-2 text-base md:text-lg">
+              <Bell className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />
               Notification Settings
             </CardTitle>
           </CardHeader>
@@ -205,8 +205,8 @@ export default function SettingsPage() {
         {/* System Settings */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-purple-500" />
+            <CardTitle className="flex items-center gap-2 text-base md:text-lg">
+              <Shield className="h-4 w-4 md:h-5 md:w-5 text-purple-500" />
               System Controls
             </CardTitle>
           </CardHeader>
@@ -238,7 +238,7 @@ export default function SettingsPage() {
       </div>
 
       <div className="mt-6 flex justify-end">
-        <Button onClick={handleSave} disabled={saving} className="min-w-[150px]">
+        <Button onClick={handleSave} disabled={saving} className="min-w-[120px] md:min-w-[150px] text-sm">
           <Save className="h-4 w-4 mr-2" />
           {saving ? 'Saving...' : 'Save Changes'}
         </Button>

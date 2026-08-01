@@ -10,9 +10,9 @@ export function HeroSection() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-royal-900 via-royal-700 to-royal-600">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gold-500/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-royal-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-10 w-48 h-48 md:w-72 md:h-72 bg-gold-500/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 right-10 w-64 h-64 md:w-96 md:h-96 bg-royal-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-white/5 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -28,17 +28,17 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6"
+              className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5 md:px-4 md:py-2 mb-4 md:mb-6"
             >
-              <GraduationCap className="h-4 w-4 text-gold-400" />
-              <span className="text-sm font-medium">World-Class Education</span>
+              <GraduationCap className="h-3 w-3 md:h-4 md:w-4 text-gold-400" />
+              <span className="text-xs md:text-sm font-medium">World-Class Education</span>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-5xl lg:text-7xl font-bold mb-6 font-heading leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 font-heading leading-tight"
             >
               Shaping the
               <span className="text-gold-400"> Future</span> of
@@ -52,7 +52,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="text-xl text-gray-200 mb-8 max-w-xl"
+              className="text-sm md:text-lg lg:text-xl text-gray-200 mb-6 md:mb-8 max-w-xl"
             >
               Join a community of scholars, innovators, and leaders dedicated to understanding and bridging cultures across the globe.
             </motion.p>
@@ -61,16 +61,16 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-3 md:gap-4"
             >
               <Link href="/admissions">
-                <Button size="lg" className="bg-gold-500 hover:bg-gold-600 text-white">
+                <Button size="lg" className="bg-gold-500 hover:bg-gold-600 text-white w-full sm:w-auto text-sm md:text-base">
                   Apply Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
                 </Button>
               </Link>
               <Link href="/about">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 w-full sm:w-auto text-sm md:text-base">
                   Learn More
                 </Button>
               </Link>
@@ -80,19 +80,19 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
-              className="flex items-center space-x-8 mt-12"
+              className="flex flex-wrap items-center gap-3 md:gap-4 lg:gap-8 mt-8 md:mt-12"
             >
-              <div className="flex items-center space-x-2">
-                <Globe className="h-6 w-6 text-gold-400" />
-                <span className="text-sm">50+ Countries</span>
+              <div className="flex items-center space-x-1.5 md:space-x-2">
+                <Globe className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gold-400" />
+                <span className="text-xs md:text-sm">50+ Countries</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <BookOpen className="h-6 w-6 text-gold-400" />
-                <span className="text-sm">100+ Programs</span>
+              <div className="flex items-center space-x-1.5 md:space-x-2">
+                <BookOpen className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gold-400" />
+                <span className="text-xs md:text-sm">100+ Programs</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <GraduationCap className="h-6 w-6 text-gold-400" />
-                <span className="text-sm">10,000+ Alumni</span>
+              <div className="flex items-center space-x-1.5 md:space-x-2">
+                <GraduationCap className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-gold-400" />
+                <span className="text-xs md:text-sm">10,000+ Alumni</span>
               </div>
             </motion.div>
           </motion.div>
@@ -125,13 +125,13 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 hidden sm:block"
       >
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+        <div className="w-5 h-8 md:w-6 md:h-10 border-2 border-white/50 rounded-full flex justify-center">
           <motion.div
-            animate={{ y: [0, 12, 0] }}
+            animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 h-3 bg-white/50 rounded-full mt-2"
+            className="w-1 h-2 md:h-3 bg-white/50 rounded-full mt-2"
           />
         </div>
       </motion.div>

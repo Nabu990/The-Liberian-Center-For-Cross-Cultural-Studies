@@ -214,15 +214,15 @@ export default function CoursesPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <BookOpen className="h-8 w-8 text-royal-600" />
-            <h1 className="text-3xl font-bold font-heading">Course Management</h1>
+            <BookOpen className="h-6 w-6 md:h-8 md:w-8 text-royal-600" />
+            <h1 className="text-2xl md:text-3xl font-bold font-heading">Course Management</h1>
           </div>
           <p className="text-gray-600 dark:text-gray-400">Add and manage courses</p>
         </div>
-        <Button onClick={() => setShowAddForm(!showAddForm)}>
+        <Button onClick={() => setShowAddForm(!showAddForm)} className="w-full sm:w-auto">
           <Plus className="h-4 w-4 mr-2" />
           Add Course
         </Button>
@@ -241,7 +241,7 @@ export default function CoursesPage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleAddCourse} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="code">Course Code *</Label>
                   <Input
@@ -274,7 +274,7 @@ export default function CoursesPage() {
                 />
               </div>
 
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
                   <Label htmlFor="credits">Credits *</Label>
                   <Input
@@ -315,7 +315,7 @@ export default function CoursesPage() {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
                   <Label htmlFor="departmentId">Department *</Label>
                   <select
@@ -376,9 +376,9 @@ export default function CoursesPage() {
                 />
               </div>
 
-              <div className="flex gap-2">
-                <Button type="submit">Create Course</Button>
-                <Button type="button" variant="outline" onClick={() => setShowAddForm(false)}>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button type="submit" className="w-full sm:w-auto">Create Course</Button>
+                <Button type="button" variant="outline" onClick={() => setShowAddForm(false)} className="w-full sm:w-auto">
                   Cancel
                 </Button>
               </div>
@@ -400,39 +400,39 @@ export default function CoursesPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead className="border-b">
-                  <tr className="text-sm text-gray-500">
-                    <th className="p-4">Code</th>
-                    <th className="p-4">Name</th>
-                    <th className="p-4">Department</th>
-                    <th className="p-4">Teacher</th>
-                    <th className="p-4">Credits</th>
-                    <th className="p-4">Semester</th>
-                    <th className="p-4">Level</th>
-                    <th className="p-4">Status</th>
-                    <th className="p-4">Actions</th>
+                  <tr className="text-xs md:text-sm text-gray-500">
+                    <th className="p-2 md:p-4">Code</th>
+                    <th className="p-2 md:p-4">Name</th>
+                    <th className="p-2 md:p-4 hidden sm:table-cell">Department</th>
+                    <th className="p-2 md:p-4 hidden md:table-cell">Teacher</th>
+                    <th className="p-2 md:p-4 hidden sm:table-cell">Credits</th>
+                    <th className="p-2 md:p-4 hidden sm:table-cell">Semester</th>
+                    <th className="p-2 md:p-4 hidden sm:table-cell">Level</th>
+                    <th className="p-2 md:p-4">Status</th>
+                    <th className="p-2 md:p-4">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {courses.map((course) => (
                     <tr key={course.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
-                      <td className="p-4 font-medium">{course.code}</td>
-                      <td className="p-4">
-                        <p className="font-semibold">{course.name}</p>
-                        <p className="text-sm text-gray-500 truncate max-w-xs">{course.description}</p>
+                      <td className="p-2 md:p-4 font-medium text-sm md:text-base">{course.code}</td>
+                      <td className="p-2 md:p-4">
+                        <p className="font-semibold text-sm md:text-base">{course.name}</p>
+                        <p className="text-xs md:text-sm text-gray-500 truncate max-w-[120px] md:max-w-xs">{course.description}</p>
                       </td>
-                      <td className="p-4">{course.department.name}</td>
-                      <td className="p-4">
+                      <td className="p-2 md:p-4 text-sm hidden sm:table-cell">{course.department.name}</td>
+                      <td className="p-2 md:p-4 text-sm hidden md:table-cell">
                         {course.teacher ? `${course.teacher.user.firstName} ${course.teacher.user.lastName}` : '—'}
                       </td>
-                      <td className="p-4">{course.credits}</td>
-                      <td className="p-4">{course.semester}</td>
-                      <td className="p-4">{course.level}</td>
-                      <td className="p-4">
+                      <td className="p-2 md:p-4 text-sm hidden sm:table-cell">{course.credits}</td>
+                      <td className="p-2 md:p-4 text-sm hidden sm:table-cell">{course.semester}</td>
+                      <td className="p-2 md:p-4 text-sm hidden sm:table-cell">{course.level}</td>
+                      <td className="p-2 md:p-4">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${course.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                           {course.isActive ? 'Active' : 'Inactive'}
                         </span>
                       </td>
-                      <td className="p-4">
+                      <td className="p-2 md:p-4">
                         <Button
                           variant="ghost"
                           size="sm"

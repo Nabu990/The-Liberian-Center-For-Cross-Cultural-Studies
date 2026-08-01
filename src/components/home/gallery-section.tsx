@@ -54,15 +54,15 @@ export function GallerySection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4 font-heading">Campus Gallery</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-heading">Campus Gallery</h2>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
             Explore our beautiful campus and vibrant community
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {galleryItems.map((item, index) => (
             <motion.div
               key={item.title}

@@ -112,58 +112,58 @@ export default function DashboardPage() {
               </div>
             )}
 
-            <div className="grid md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-royal-600" />
+                  <CardTitle className="flex items-center gap-2 text-sm md:text-base">
+                    <Users className="h-4 w-4 md:h-5 md:w-5 text-royal-600" />
                     Total Users
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold">{statsLoading ? '...' : stats?.totalUsers.toLocaleString() || '0'}</div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Registered users</p>
+                  <div className="text-2xl md:text-3xl font-bold">{statsLoading ? '...' : stats?.totalUsers.toLocaleString() || '0'}</div>
+                  <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Registered users</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BookOpen className="h-5 w-5 text-gold-500" />
+                  <CardTitle className="flex items-center gap-2 text-sm md:text-base">
+                    <BookOpen className="h-4 w-4 md:h-5 md:w-5 text-gold-500" />
                     Students
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold">{statsLoading ? '...' : stats?.activeStudents.toLocaleString() || '0'}</div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Active students</p>
+                  <div className="text-2xl md:text-3xl font-bold">{statsLoading ? '...' : stats?.activeStudents.toLocaleString() || '0'}</div>
+                  <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Active students</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-green-500" />
+                  <CardTitle className="flex items-center gap-2 text-sm md:text-base">
+                    <Calendar className="h-4 w-4 md:h-5 md:w-5 text-green-500" />
                     Courses
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold">{statsLoading ? '...' : stats?.activeCourses.toLocaleString() || '0'}</div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Active courses</p>
+                  <div className="text-2xl md:text-3xl font-bold">{statsLoading ? '...' : stats?.activeCourses.toLocaleString() || '0'}</div>
+                  <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Active courses</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <DollarSign className="h-5 w-5 text-blue-500" />
+                  <CardTitle className="flex items-center gap-2 text-sm md:text-base">
+                    <DollarSign className="h-4 w-4 md:h-5 md:w-5 text-blue-500" />
                     Revenue
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold">${statsLoading ? '...' : (stats?.monthlyRevenue || 0).toLocaleString()}</div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">This month</p>
+                  <div className="text-2xl md:text-3xl font-bold">${statsLoading ? '...' : (stats?.monthlyRevenue || 0).toLocaleString()}</div>
+                  <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">This month</p>
                 </CardContent>
               </Card>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
                   <CardTitle>Quick Actions</CardTitle>

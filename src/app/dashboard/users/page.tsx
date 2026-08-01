@@ -118,8 +118,8 @@ export default function UsersPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
-          <Users className="h-8 w-8 text-royal-600" />
-          <h1 className="text-3xl font-bold font-heading">User Management</h1>
+          <Users className="h-6 w-6 md:h-8 md:w-8 text-royal-600" />
+          <h1 className="text-2xl md:text-3xl font-bold font-heading">User Management</h1>
         </div>
         <p className="text-gray-600 dark:text-gray-400">Manage all users in the system</p>
       </div>
@@ -132,8 +132,8 @@ export default function UsersPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <ShieldCheck className="h-5 w-5 text-royal-600" />
+          <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
+            <ShieldCheck className="h-4 w-4 md:h-5 md:w-5 text-royal-600" />
             All Users
           </CardTitle>
         </CardHeader>
@@ -168,35 +168,35 @@ export default function UsersPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead className="border-b">
-                  <tr className="text-sm text-gray-500">
-                    <th className="p-4">User</th>
-                    <th className="p-4">ID</th>
-                    <th className="p-4">Role</th>
-                    <th className="p-4">Status</th>
-                    <th className="p-4">Joined</th>
+                  <tr className="text-xs md:text-sm text-gray-500">
+                    <th className="p-2 md:p-4">User</th>
+                    <th className="p-2 md:p-4 hidden sm:table-cell">ID</th>
+                    <th className="p-2 md:p-4">Role</th>
+                    <th className="p-2 md:p-4 hidden sm:table-cell">Status</th>
+                    <th className="p-2 md:p-4 hidden md:table-cell">Joined</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredUsers.map((u) => (
                     <tr key={u.id} className="border-b hover:bg-gray-50 dark:hover:bg-gray-800">
-                      <td className="p-4">
-                        <p className="font-semibold">{u.firstName} {u.lastName}</p>
-                        <p className="text-sm text-gray-500">{u.email}</p>
+                      <td className="p-2 md:p-4">
+                        <p className="font-semibold text-sm md:text-base">{u.firstName} {u.lastName}</p>
+                        <p className="text-xs md:text-sm text-gray-500 truncate max-w-[150px] md:max-w-xs">{u.email}</p>
                       </td>
-                      <td className="p-4 text-sm">
+                      <td className="p-2 md:p-4 text-sm hidden sm:table-cell">
                         {u.student?.studentId || u.teacher?.employeeId || '—'}
                       </td>
-                      <td className="p-4">
+                      <td className="p-2 md:p-4">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${roleColors[u.role]}`}>
                           {roleLabels[u.role]}
                         </span>
                       </td>
-                      <td className="p-4">
+                      <td className="p-2 md:p-4 hidden sm:table-cell">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${u.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                           {u.isActive ? 'Active' : 'Inactive'}
                         </span>
                       </td>
-                      <td className="p-4 text-sm text-gray-500">
+                      <td className="p-2 md:p-4 text-sm text-gray-500 hidden md:table-cell">
                         {new Date(u.createdAt).toLocaleDateString()}
                       </td>
                     </tr>

@@ -1,22 +1,24 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '@/contexts/auth-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { GraduationCap, ArrowLeft } from 'lucide-react'
+import { GraduationCap, ArrowLeft, Chrome } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [googleLoading, setGoogleLoading] = useState(false)
   const { login } = useAuth()
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,6 +34,62 @@ export default function LoginPage() {
       setLoading(false)
     }
   }
+
+  const handleGoogleAuth = async () => {
+    setError('')
+    setGoogleLoading(true)
+
+    try {
+      const response = await fetch('/api/auth/google')
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data?.error?.message || 'Failed to initialize Google OAuth')
+      }
+
+      window.location.href = data.authUrl
+    } catch (err: any) {
+      setError(err.message)
+      setGoogleLoading(false)
+    }
+  }
+
+  // Handle OAuth callback
+  useEffect(() => {
+    const accessToken = searchParams.get('accessToken')
+    const refreshToken = searchParams.get('refreshToken')
+    const userParam = searchParams.get('user')
+
+    if (accessToken && refreshToken && userParam) {
+      try {
+        const user = JSON.parse(userParam)
+        localStorage.setItem('accessToken', accessToken)
+        localStorage.setItem('refreshToken', refreshToken)
+        localStorage.setItem('user', JSON.stringify(user))
+        router.replace('/dashboard')
+      } catch (err) {
+        console.error('Failed to parse OAuth user data:', err)
+      }
+    }
+
+    const registered = searchParams.get('registered')
+    if (registered === 'true') {
+      setError('')
+    }
+
+    const oauthError = searchParams.get('error')
+    if (oauthError) {
+      const errorMessages: Record<string, string> = {
+        missing_code: 'Authorization code missing',
+        token_exchange_failed: 'Failed to exchange authorization code',
+        user_info_failed: 'Failed to retrieve user information',
+        no_email: 'Email is required from Google',
+        account_inactive: 'Your account is inactive. Please contact the administrator.',
+        oauth_failed: 'Google OAuth failed. Please try again.',
+      }
+      setError(errorMessages[oauthError] || 'Authentication failed')
+    }
+  }, [searchParams, router])
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-royal-900 via-royal-700 to-royal-600">
@@ -125,6 +183,26 @@ export default function LoginPage() {
                 
                 <Button type="submit" className="w-full h-11" disabled={loading}>
                   {loading ? 'Signing in...' : 'Sign In'}
+                </Button>
+
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t border-gray-300 dark:border-gray-600"></span>
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-white dark:bg-gray-800 px-2 text-gray-500">Or continue with</span>
+                  </div>
+                </div>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full h-11"
+                  onClick={handleGoogleAuth}
+                  disabled={googleLoading}
+                >
+                  <Chrome className="h-4 w-4 mr-2" />
+                  {googleLoading ? 'Connecting...' : 'Sign in with Google'}
                 </Button>
                 
                 <div className="text-center text-sm pt-2">

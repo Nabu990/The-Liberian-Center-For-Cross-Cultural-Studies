@@ -64,6 +64,7 @@ model User {
   emailVerifiedAt   DateTime?
   lastLogin         DateTime?
   isActive          Boolean   @default(true)
+  googleId          String?   @unique
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 
@@ -76,6 +77,7 @@ model User {
 
   @@index([email])
   @@index([role])
+  @@index([googleId])
 }
 
 model RefreshToken {

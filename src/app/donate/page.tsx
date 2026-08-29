@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { Navigation } from '@/components/layout/navigation'
 import { Footer } from '@/components/layout/footer'
 import { Button } from '@/components/ui/button'
@@ -11,7 +11,7 @@ import { Heart, GraduationCap, BookOpen, Users, Award, Building2, CreditCard, Ba
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 
-export default function DonatePage() {
+function DonatePageContent() {
   const searchParams = useSearchParams()
   const canceled = searchParams.get('status') === 'cancelled'
   
@@ -370,5 +370,13 @@ export default function DonatePage() {
 
       <Footer />
     </main>
+  )
+}
+
+export default function DonatePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <DonatePageContent />
+    </Suspense>
   )
 }

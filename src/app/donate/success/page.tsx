@@ -15,21 +15,26 @@ export default function DonateSuccessPage() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    const status = searchParams.get('status')
-    const tx_ref = searchParams.get('tx_ref')
+    // Flutterwave payment status handling (commented out)
+    // const status = searchParams.get('status')
+    // const tx_ref = searchParams.get('tx_ref')
     
-    if (status === 'successful' && tx_ref) {
-      setLoading(false)
-    } else if (status === 'cancelled') {
-      setError('Payment was canceled')
-      setLoading(false)
-    } else if (status === 'failed') {
-      setError('Payment failed')
-      setLoading(false)
-    } else {
-      setError('Invalid payment status')
-      setLoading(false)
-    }
+    // if (status === 'successful' && tx_ref) {
+    //   setLoading(false)
+    // } else if (status === 'cancelled') {
+    //   setError('Payment was canceled')
+    //   setLoading(false)
+    // } else if (status === 'failed') {
+    //   setError('Payment failed')
+    //   setLoading(false)
+    // } else {
+    //   setError('Invalid payment status')
+    //   setLoading(false)
+    // }
+
+    // Payment integration disabled
+    setError('Payment integration is currently disabled')
+    setLoading(false)
   }, [searchParams])
 
   if (loading) {

@@ -74,12 +74,15 @@ export default function DonatePage() {
         throw new Error(data?.error?.message || 'Failed to create payment link')
       }
 
-      // Redirect to Flutterwave checkout
-      if (data.link_url) {
-        window.location.href = data.link_url
-      } else {
-        throw new Error('No payment link returned')
-      }
+      // Redirect to Flutterwave checkout (commented out)
+      // if (data.link_url) {
+      //   window.location.href = data.link_url
+      // } else {
+      //   throw new Error('No payment link returned')
+      // }
+
+      // Show error since payment is disabled
+      throw new Error('Payment integration is currently disabled. Please use bank transfer or mobile money options below.')
     } catch (err: any) {
       setError(err.message)
       setLoading(false)
@@ -256,7 +259,8 @@ export default function DonatePage() {
                         </button>
                       </div>
                       <p className="text-xs text-gray-500 mt-2">
-                        Secure payments powered by Flutterwave
+                        {/* Secure payments powered by Flutterwave */}
+                        Payment integration currently disabled
                       </p>
                     </div>
 

@@ -12,8 +12,9 @@ async function getActor(request: NextRequest) {
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   const actor = await getActor(request)
   if (!actor || actor.role !== 'SUPER_ADMIN') {
     return NextResponse.json({ error: { message: 'Super Admin access is required.' } }, { status: 403 })
@@ -21,7 +22,7 @@ export async function DELETE(
 
   try {
     const course = await prisma.course.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         enrollments: { take: 1 },
       },
@@ -39,7 +40,7 @@ export async function DELETE(
     }
 
     await prisma.course.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({ message: 'Course deleted successfully' })

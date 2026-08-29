@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { GraduationCap, ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { Chrome } from 'lucide-react'
 
 export default function RegisterPage() {
@@ -23,6 +24,7 @@ export default function RegisterPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,7 +78,13 @@ export default function RegisterPage() {
         <div className="hidden lg:flex lg:w-1/2 flex-col justify-center px-12 bg-royal-900/50">
           <div className="max-w-lg">
             <div className="flex items-center space-x-3 mb-8">
-              <GraduationCap className="h-12 w-12 text-gold-400" />
+              <Image 
+                src="/images/LCCS-logo.png" 
+                alt="LCCCS Logo" 
+                width={48} 
+                height={48}
+                className="h-12 w-12"
+              />
               <span className="text-3xl font-bold font-heading text-white">LCCCS</span>
             </div>
             <h1 className="text-4xl font-bold text-white mb-6 font-heading">
@@ -114,7 +122,13 @@ export default function RegisterPage() {
             <Card className="shadow-2xl">
               <CardHeader className="text-center pb-8">
                 <div className="lg:hidden mx-auto mb-4 w-16 h-16 bg-royal-600 rounded-full flex items-center justify-center">
-                  <GraduationCap className="h-8 w-8 text-white" />
+                  <Image 
+                    src="/images/LCCS-logo.png" 
+                    alt="LCCCS Logo" 
+                    width={32} 
+                    height={32}
+                    className="h-8 w-8"
+                  />
                 </div>
                 <CardTitle className="font-heading text-2xl">Create Account</CardTitle>
                 <CardDescription>Fill in your details to get started</CardDescription>
@@ -167,16 +181,25 @@ export default function RegisterPage() {
                 
                 <div>
                   <Label htmlFor="password" className="text-sm font-medium">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    required
-                    minLength={8}
-                    className="mt-1"
-                  />
+                  <div className="relative mt-1">
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      required
+                      minLength={8}
+                      className="pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
                   <p className="text-xs text-gray-500 mt-1">
                     Must be at least 8 characters with uppercase, lowercase, and number
                   </p>

@@ -6,16 +6,19 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { GraduationCap, ArrowLeft, Chrome } from 'lucide-react'
+import { ArrowLeft, Chrome, Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
+import Image from 'next/image'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const { login } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -89,6 +92,11 @@ export default function LoginPage() {
       }
       setError(errorMessages[oauthError] || 'Authentication failed')
     }
+
+    const resetSuccess = searchParams.get('reset')
+    if (resetSuccess === 'true') {
+      setSuccess('Your password has been reset successfully. Please sign in with your new password.')
+    }
   }, [searchParams, router])
 
   return (
@@ -98,7 +106,13 @@ export default function LoginPage() {
         <div className="hidden lg:flex lg:w-1/2 flex-col justify-center px-12 bg-royal-900/50">
           <div className="max-w-lg">
             <div className="flex items-center space-x-3 mb-8">
-              <GraduationCap className="h-12 w-12 text-gold-400" />
+              <Image 
+                src="/images/LCCS-logo.png" 
+                alt="LCCCS Logo" 
+                width={48} 
+                height={48}
+                className="h-12 w-12"
+              />
               <span className="text-3xl font-bold font-heading text-white">LCCCS</span>
             </div>
             <h1 className="text-4xl font-bold text-white mb-6 font-heading">
@@ -136,7 +150,13 @@ export default function LoginPage() {
             <Card className="shadow-2xl">
               <CardHeader className="text-center pb-8">
                 <div className="lg:hidden mx-auto mb-4 w-16 h-16 bg-royal-600 rounded-full flex items-center justify-center">
-                  <GraduationCap className="h-8 w-8 text-white" />
+                  <Image 
+                    src="/images/LCCS-logo.png" 
+                    alt="LCCCS Logo" 
+                    width={32} 
+                    height={32}
+                    className="h-8 w-8"
+                  />
                 </div>
                 <CardTitle className="font-heading text-2xl">Sign In</CardTitle>
                 <CardDescription>Enter your credentials to access your account</CardDescription>
@@ -146,6 +166,12 @@ export default function LoginPage() {
                 {error && (
                   <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-3 rounded-md text-sm">
                     {error}
+                  </div>
+                )}
+                
+                {success && (
+                  <div className="bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 p-3 rounded-md text-sm">
+                    {success}
                   </div>
                 )}
                 
@@ -164,15 +190,24 @@ export default function LoginPage() {
                 
                 <div>
                   <Label htmlFor="password" className="text-sm font-medium">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="mt-1"
-                  />
+                  <div className="relative mt-1">
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      className="pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
                 </div>
                 
                 <div className="flex items-center justify-between text-sm">

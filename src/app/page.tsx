@@ -6,6 +6,7 @@ import { TestimonialsSection } from '@/components/home/testimonials-section'
 import { GallerySection } from '@/components/home/gallery-section'
 import { EventsSection } from '@/components/home/events-section'
 import { PartnersSection } from '@/components/home/partners-section'
+import { DonationSection } from '@/components/home/donation-section'
 import { Footer } from '@/components/layout/footer'
 import { Navigation } from '@/components/layout/navigation'
 
@@ -20,6 +21,7 @@ export default function Home() {
       <TestimonialsSection />
       <GallerySection />
       <EventsSection />
+      <DonationSection />
       <PartnersSection />
       <Footer />
     </main>

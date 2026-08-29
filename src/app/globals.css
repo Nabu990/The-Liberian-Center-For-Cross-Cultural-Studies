@@ -95,22 +95,14 @@
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+/* Hide scrollbar */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-800;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-royal-600 rounded-full;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-royal-700;
+*::-webkit-scrollbar {
+  display: none;
 }
 
 /* Animations */

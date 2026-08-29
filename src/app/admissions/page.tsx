@@ -2,8 +2,9 @@ import { Navigation } from '@/components/layout/navigation'
 import { Footer } from '@/components/layout/footer'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { CheckCircle, DollarSign, FileText, GraduationCap } from 'lucide-react'
+import { CheckCircle, DollarSign, FileText } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function AdmissionsPage() {
   return (
@@ -66,7 +67,13 @@ export default function AdmissionsPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <GraduationCap className="h-6 w-6 text-royal-600" />
+                  <Image 
+                    src="/images/LCCS-logo.png" 
+                    alt="LCCCS Logo" 
+                    width={24} 
+                    height={24}
+                    className="h-6 w-6"
+                  />
                   Graduate Programs
                 </CardTitle>
               </CardHeader>

@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { GraduationCap, Menu, X } from 'lucide-react'
+import Image from 'next/image'
+import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/auth-context'
 
@@ -15,6 +16,7 @@ export function Navigation() {
     { href: '/about', label: 'About' },
     { href: '/academics', label: 'Academics' },
     { href: '/admissions', label: 'Admissions' },
+    { href: '/donate', label: 'Donate' },
     { href: '/contact', label: 'Contact' },
   ]
 
@@ -24,7 +26,13 @@ export function Navigation() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 hover:opacity-90 transition-opacity">
-            <GraduationCap className="h-10 w-10" />
+            <Image 
+              src="/images/LCCS-logo.png" 
+              alt="LCCCS Logo" 
+              width={40} 
+              height={40}
+              className="h-10 w-10"
+            />
             <span className="text-2xl font-bold font-heading">LCCCS</span>
           </Link>
 

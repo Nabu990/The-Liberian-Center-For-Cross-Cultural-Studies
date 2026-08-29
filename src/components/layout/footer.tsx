@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { GraduationCap, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react'
+import Image from 'next/image'
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -9,7 +10,13 @@ export function Footer() {
           {/* About */}
           <div>
             <div className="flex items-center space-x-3 mb-6">
-              <GraduationCap className="h-10 w-10" />
+              <Image 
+                src="/images/LCCS-logo.png" 
+                alt="LCCCS Logo" 
+                width={40} 
+                height={40}
+                className="h-10 w-10"
+              />
               <span className="text-2xl font-bold font-heading">LCCCS</span>
             </div>
             <p className="text-gray-300 mb-6">
@@ -38,6 +45,7 @@ export function Footer() {
               <li><Link href="/about" className="text-gray-300 hover:text-gold-400 transition-colors">About Us</Link></li>
               <li><Link href="/academics" className="text-gray-300 hover:text-gold-400 transition-colors">Academics</Link></li>
               <li><Link href="/admissions" className="text-gray-300 hover:text-gold-400 transition-colors">Admissions</Link></li>
+              <li><Link href="/donate" className="text-gray-300 hover:text-gold-400 transition-colors font-medium">Donate</Link></li>
               <li><Link href="/student-life" className="text-gray-300 hover:text-gold-400 transition-colors">Student Life</Link></li>
               <li><Link href="/news" className="text-gray-300 hover:text-gold-400 transition-colors">News & Events</Link></li>
               <li><Link href="/contact" className="text-gray-300 hover:text-gold-400 transition-colors">Contact</Link></li>

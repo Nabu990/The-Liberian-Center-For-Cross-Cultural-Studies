@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   description: 'A world-class educational institution dedicated to cross-cultural studies and academic excellence.',
   keywords: ['education', 'university', 'cross-cultural studies', 'Liberia', 'academic excellence'],
   authors: [{ name: 'LCCCS' }],
+  icons: {
+    icon: '/favicon.png',
+  },
   openGraph: {
     title: 'LCCCS - Liberian Center for Cross Cultural Studies',
     description: 'A world-class educational institution dedicated to cross-cultural studies and academic excellence.',

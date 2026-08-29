@@ -42,8 +42,15 @@ router.get('/stats', authenticate, authorize('ADMIN', 'SUPER_ADMIN'), async (req
 // Get system settings
 router.get('/settings', authenticate, authorize('ADMIN', 'SUPER_ADMIN'), async (req: AuthRequest, res) => {
   try {
-    const settings = await prisma.systemSettings.findFirst()
-    res.json({ settings })
+    const settings = await prisma.systemSettings.findMany()
+    
+    // Convert array of settings to object with key-value pairs
+    const settingsObject = settings.reduce((acc, setting) => {
+      acc[setting.key] = setting.value
+      return acc
+    }, {} as Record<string, string>)
+    
+    res.json({ settings: settingsObject })
   } catch (error) {
     console.error('Get settings error:', error)
     res.status(500).json({ error: { message: 'Internal server error' } })
@@ -55,24 +62,34 @@ router.put('/settings', authenticate, authorize('SUPER_ADMIN'), async (req: Auth
   try {
     const { schoolName, schoolAddress, schoolPhone, schoolEmail, academicYear } = req.body
 
-    const settings = await prisma.systemSettings.upsert({
-      where: { id: 'default' },
-      update: {
-        schoolName,
-        schoolAddress,
-        schoolPhone,
-        schoolEmail,
-        academicYear,
-      },
-      create: {
-        id: 'default',
-        schoolName,
-        schoolAddress,
-        schoolPhone,
-        schoolEmail,
-        academicYear,
-      },
-    })
+    // Update multiple settings as key-value pairs
+    const settings = await Promise.all([
+      prisma.systemSettings.upsert({
+        where: { key: 'schoolName' },
+        update: { value: schoolName },
+        create: { key: 'schoolName', value: schoolName, description: 'School name' },
+      }),
+      prisma.systemSettings.upsert({
+        where: { key: 'schoolAddress' },
+        update: { value: schoolAddress },
+        create: { key: 'schoolAddress', value: schoolAddress, description: 'School address' },
+      }),
+      prisma.systemSettings.upsert({
+        where: { key: 'schoolPhone' },
+        update: { value: schoolPhone },
+        create: { key: 'schoolPhone', value: schoolPhone, description: 'School phone number' },
+      }),
+      prisma.systemSettings.upsert({
+        where: { key: 'schoolEmail' },
+        update: { value: schoolEmail },
+        create: { key: 'schoolEmail', value: schoolEmail, description: 'School email' },
+      }),
+      prisma.systemSettings.upsert({
+        where: { key: 'academicYear' },
+        update: { value: academicYear },
+        create: { key: 'academicYear', value: academicYear, description: 'Current academic year' },
+      }),
+    ])
 
     res.json({ settings })
   } catch (error) {

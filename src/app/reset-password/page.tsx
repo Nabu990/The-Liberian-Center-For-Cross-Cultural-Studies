@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,7 +9,7 @@ import { ArrowLeft, Lock, Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function ResetPasswordPage() {
+function ResetPasswordPageContent() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
@@ -159,5 +159,13 @@ export default function ResetPasswordPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <ResetPasswordPageContent />
+    </Suspense>
   )
 }

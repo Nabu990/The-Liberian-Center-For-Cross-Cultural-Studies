@@ -12,7 +12,7 @@ INSERT INTO "User" (
 ) VALUES (
   'super-admin-001',
   'admin@lcccs.edu',
-  '$2a$10$0Ot3t7gsqHalQoN3SK1U9eEz9ggMC7eIVQ4uFogKdF.IWjbjjrBKW',
+  '$2a$12$XYvSndYpPvvU56RS2J4IEuxg.nf7K6khjWGSQmivmpL/BkY6zcmIm',
   'Super',
   'Admin',
   'SUPER_ADMIN',
@@ -22,5 +22,5 @@ INSERT INTO "User" (
   NOW()
 ) ON CONFLICT (email) DO UPDATE SET
   role = 'SUPER_ADMIN',
-  password = '$2a$10$0Ot3t7gsqHalQoN3SK1U9eEz9ggMC7eIVQ4uFogKdF.IWjbjjrBKW',
+  password = '$2a$12$XYvSndYpPvvU56RS2J4IEuxg.nf7K6khjWGSQmivmpL/BkY6zcmIm',
   "isActive" = true;

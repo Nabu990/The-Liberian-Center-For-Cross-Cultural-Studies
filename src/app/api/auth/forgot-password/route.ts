@@ -20,12 +20,11 @@ export async function POST(request: Request) {
       },
     })
 
-    // Always return success to prevent email enumeration
+    // Check if user exists
     if (!user) {
       return NextResponse.json({ 
-        message: 'If an account exists with this email, a password reset link has been sent.',
-        resetUrl: null 
-      })
+        error: { message: 'No account found with this email address.' }
+      }, { status: 404 })
     }
 
     // Generate reset token

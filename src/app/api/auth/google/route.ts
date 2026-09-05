@@ -2,14 +2,14 @@ import { NextResponse } from 'next/server'
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
-const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+const APP_URL = process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
 export async function GET() {
   if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
     return NextResponse.json({ error: { message: 'Google OAuth is not configured.' } }, { status: 500 })
   }
 
-  const redirectUri = `${NEXT_PUBLIC_APP_URL}/api/auth/google/callback`
+  const redirectUri = `${APP_URL}/api/auth/google/callback`
   const scope = 'openid profile email'
   const state = Math.random().toString(36).substring(2, 15)
 

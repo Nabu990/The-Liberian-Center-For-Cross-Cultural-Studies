@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
-const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+const APP_URL = process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
 export async function GET(request: Request) {
   try {
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     const state = searchParams.get('state')
 
     if (!code) {
-      return NextResponse.redirect(`${NEXT_PUBLIC_APP_URL}/register?error=missing_code`)
+      return NextResponse.redirect(`${APP_URL}/register?error=missing_code`)
     }
 
     // Exchange code for tokens
@@ -25,7 +25,7 @@ export async function GET(request: Request) {
         code,
         client_id: GOOGLE_CLIENT_ID!,
         client_secret: GOOGLE_CLIENT_SECRET!,
-        redirect_uri: `${NEXT_PUBLIC_APP_URL}/api/auth/google/callback`,
+        redirect_uri: `${APP_URL}/api/auth/google/callback`,
         grant_type: 'authorization_code',
       }),
     })
@@ -34,7 +34,7 @@ export async function GET(request: Request) {
 
     if (!tokenResponse.ok) {
       console.error('Google token error:', tokenData)
-      return NextResponse.redirect(`${NEXT_PUBLIC_APP_URL}/register?error=token_exchange_failed`)
+      return NextResponse.redirect(`${APP_URL}/register?error=token_exchange_failed`)
     }
 
     // Get user info from Google
@@ -46,7 +46,7 @@ export async function GET(request: Request) {
 
     if (!userResponse.ok) {
       console.error('Google user info error:', userData)
-      return NextResponse.redirect(`${NEXT_PUBLIC_APP_URL}/register?error=user_info_failed`)
+      return NextResponse.redirect(`${APP_URL}/register?error=user_info_failed`)
     }
 
     const googleEmail = userData.email?.toLowerCase()
@@ -55,7 +55,7 @@ export async function GET(request: Request) {
     const lastName = userData.family_name || ''
 
     if (!googleEmail) {
-      return NextResponse.redirect(`${NEXT_PUBLIC_APP_URL}/register?error=no_email`)
+      return NextResponse.redirect(`${APP_URL}/register?error=no_email`)
     }
 
     // Check if user exists
@@ -81,7 +81,7 @@ export async function GET(request: Request) {
     if (user) {
       // User exists, log them in
       if (!user.isActive) {
-        return NextResponse.redirect(`${NEXT_PUBLIC_APP_URL}/register?error=account_inactive`)
+        return NextResponse.redirect(`${APP_URL}/register?error=account_inactive`)
       }
 
       await prisma.user.update({
@@ -106,7 +106,7 @@ export async function GET(request: Request) {
       })
 
       // Redirect to dashboard with tokens in URL (will be handled by client)
-      const redirectUrl = new URL(`${NEXT_PUBLIC_APP_URL}/dashboard`)
+      const redirectUrl = new URL(`${APP_URL}/dashboard`)
       redirectUrl.searchParams.set('accessToken', tokens.accessToken)
       redirectUrl.searchParams.set('refreshToken', tokens.refreshToken)
       redirectUrl.searchParams.set('user', JSON.stringify(safeUser))
@@ -178,7 +178,7 @@ export async function GET(request: Request) {
     })
 
     // Redirect to dashboard with tokens
-    const redirectUrl = new URL(`${NEXT_PUBLIC_APP_URL}/dashboard`)
+    const redirectUrl = new URL(`${APP_URL}/dashboard`)
     redirectUrl.searchParams.set('accessToken', tokens.accessToken)
     redirectUrl.searchParams.set('refreshToken', tokens.refreshToken)
     redirectUrl.searchParams.set('user', JSON.stringify(newUser))
@@ -186,6 +186,6 @@ export async function GET(request: Request) {
     return NextResponse.redirect(redirectUrl.toString())
   } catch (error) {
     console.error('Google OAuth error:', error)
-    return NextResponse.redirect(`${NEXT_PUBLIC_APP_URL}/register?error=oauth_failed`)
+    return NextResponse.redirect(`${APP_URL}/register?error=oauth_failed`)
   }
 }

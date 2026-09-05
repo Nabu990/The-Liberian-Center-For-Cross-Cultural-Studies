@@ -24,12 +24,12 @@ export async function POST(request: Request) {
     //   currency: 'USD',
     //   amount: donationAmount,
     //   tx_ref,
-    //   redirect_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/donate/success`,
+    //   redirect_url: `${process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/donate/success`,
     //   duration: 3600, // 1 hour
     //   customizations: {
     //     title: 'LCCCS Donation',
     //     description: 'Support Liberian Center for Cross Cultural Studies',
-    //     logo: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/images/LCCS-logo.png`,
+    //     logo: `${process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/images/LCCS-logo.png`,
     //   },
     //   meta: {
     //     donorName: isAnonymous ? 'Anonymous' : donorName,
